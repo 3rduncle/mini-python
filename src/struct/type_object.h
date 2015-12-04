@@ -39,8 +39,8 @@ struct TypeObject {
     virtual ~TypeObject() {}
     std::string tp_name;
     VoidOfUnaryFunc tp_print;
-    UnaryFunc tp_repr;
-    StrOfUnaryFunc  tp_string;     //to raw string
+    StrOfUnaryFunc tp_repr;
+    StrOfUnaryFunc tp_string;     //to raw string
 	HashOfUnaryFunc tp_hash;
     LogicMethods tp_logic;
     NumberMethods tp_as_number;

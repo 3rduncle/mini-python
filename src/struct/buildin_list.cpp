@@ -1,5 +1,7 @@
 #include <vector>
 #include <iostream>
+#include <algorithm>
+#include <boost/algorithm/string.hpp>
 #include "struct.h"
 
 namespace ipyhon {
@@ -25,10 +27,12 @@ struct ListPrint {
 	void operator()(const any& l) {
 		assert(l.type() == typeid(List));
 		List& self = l.get_refer<List>();
-		for (auto& element: self) {
-			;
-		}
-		return;
+		std::vector<std::string> vec;
+		std::transform(
+			self.begin(), self.end(), vec.begin(), 
+			[](any& x) -> std::string {return x.get_content()->_ob_type->tp_repr(x);}
+		);
+		std::cout <<  "[" <<  boost::join(vec, ",") << "]" << std::endl;;
 	}
 };
 
