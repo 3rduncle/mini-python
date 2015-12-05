@@ -24,7 +24,7 @@ struct LogicMethods {
 };
 
 struct NumberMethods {
-	Verification nb_zero;
+    Verification nb_zero;
     BinaryFunc nb_add;
     BinaryFunc nb_sub;
     BinaryFunc nb_mul;

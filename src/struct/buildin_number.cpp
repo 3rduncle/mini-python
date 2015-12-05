@@ -102,7 +102,9 @@ IntType::IntType() {
     tp_logic.less = NumberLess();
     tp_logic.great = NumberGreat();
 
-	tp_as_number.nb_zero = [](const any& x) { return x.get_refer<int>() == 0;};
+    tp_as_number.nb_zero = [](const any& x) {
+        return x.get_refer<int>() == 0;
+    };
     tp_as_number.nb_add = NumberAdd();
     tp_as_number.nb_sub = NumberSub();
     tp_as_number.nb_mul = NumberMul();
@@ -118,7 +120,9 @@ DoubleType::DoubleType() {
     tp_logic.less = NumberLess();
     tp_logic.great = NumberGreat();
 
-	tp_as_number.nb_zero = [](const any& x) { return fabs(x.get_refer<double>()) < EPS;};
+    tp_as_number.nb_zero = [](const any& x) {
+        return fabs(x.get_refer<double>()) < EPS;
+    };
     tp_as_number.nb_add = NumberAdd();
     tp_as_number.nb_sub = NumberSub();
     tp_as_number.nb_mul = NumberMul();
