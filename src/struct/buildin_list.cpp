@@ -16,9 +16,9 @@ struct ListAdd {
             return any();
         }
         any res = l;
-        ListPtr rp = std::dynamic_pointer_cast<ListObject>(r.get_content());
-        ListPtr p = std::dynamic_pointer_cast<ListObject>(res.get_content());
-        p->_core.insert(p->_core.end(), rp->_core.begin(), rp->_core.end());
+        List& ll = res.get_refer<List>();
+        List& lr = r.get_refer<List>();
+        ll.insert(ll.end(), lr.begin(), lr.end());
         return res;
     }
 };
@@ -30,7 +30,9 @@ struct ListPrint {
         std::vector<std::string> vec;
         std::transform(
             self.begin(), self.end(), vec.begin(),
-            [](any& x) -> std::string {return x.get_content()->_ob_type->tp_repr(x);}
+        [](any& x) {
+            return x.get_content()->_ob_type->tp_repr(x);
+        }
         );
         std::cout <<  "[" <<  boost::join(vec, ",") << "]" << std::endl;;
     }
