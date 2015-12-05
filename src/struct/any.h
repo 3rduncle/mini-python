@@ -11,67 +11,67 @@
 #include <boost/algorithm/string.hpp>
 #include "type_object.h"
 
-namespace ipyhon {
+namespace ipython {
 
 class any {
 public:
-	any();
-	~any();
-	void clear() {
-		_content.reset();
-	};
+    any();
+    ~any();
+    void clear() {
+        _content.reset();
+    };
 
-	any(const char*);
-	template<typename ValueType>
-	any(const ValueType&);
-	any(const any&);
-	any& operator=(const any& rhs);
-	template<typename ValueType>
-	any& operator=(const ValueType&);
-	any& operator=(const char* rhs);
+    any(const char*);
+    template<typename ValueType>
+    any(const ValueType&);
+    any(const any&);
+    any& operator=(const any& rhs);
+    template<typename ValueType>
+    any& operator=(const ValueType&);
+    any& operator=(const char* rhs);
 
-	void set_value(const char*);
-	template<typename ValueType>
-	void set_value(const ValueType&);
+    void set_value(const char*);
+    template<typename ValueType>
+    void set_value(const ValueType&);
 
-	template<typename ValueType>
-	bool get_value(ValueType&) const;
-	template<typename ValueType>
-	ValueType* get_value() const;
-	template<typename ValueType>
-	ValueType& get_refer() const;
+    template<typename ValueType>
+    bool get_value(ValueType&) const;
+    template<typename ValueType>
+    ValueType* get_value() const;
+    template<typename ValueType>
+    ValueType& get_refer() const;
 
-	ObjectPtr get_content() const;
+    ObjectPtr get_content() const;
 
-	template<typename ValueType>
-	bool operator==(const ValueType& rhs);
-	bool operator!() const;
-	const std::type_info& type() const;
-	any& swap(any& rhs);
+    template<typename ValueType>
+    bool operator==(const ValueType& rhs);
+    bool operator!() const;
+    const std::type_info& type() const;
+    any& swap(any& rhs);
 
-	bool operator < (const any& other) const; 
-	bool operator > (const any& other) const; 
-	bool operator >= (const any& other) const; 
-	bool operator <= (const any& other) const; 
+    bool operator < (const any& other) const;
+    bool operator > (const any& other) const;
+    bool operator >= (const any& other) const;
+    bool operator <= (const any& other) const;
 
-	friend any operator+(const any&, const any&);
-	friend any operator-(const any&, const any&);
-	friend any operator*(const any&, const any&);
-	friend any operator/(const any&, const any&);
+    friend any operator+(const any&, const any&);
+    friend any operator-(const any&, const any&);
+    friend any operator*(const any&, const any&);
+    friend any operator/(const any&, const any&);
 
-	any& operator+=(const any&);
-	any& operator-=(const any&);
-	any& operator*=(const any&);
-	any& operator/=(const any&);
+    any& operator+=(const any&);
+    any& operator-=(const any&);
+    any& operator*=(const any&);
+    any& operator/=(const any&);
 private:
-	ObjectPtr _content;
+    ObjectPtr _content;
 };
 
 template<typename ValueType>
 ValueType* any_cast(any* operand) {
     return operand && (operand->type() == typeid(ValueType))?
-        &std::dynamic_pointer_cast<GeneralObject<ValueType> >(operand->get_content())->_core:
-        0;
+           &std::dynamic_pointer_cast<GeneralObject<ValueType> >(operand->get_content())->_core:
+           0;
 }
 
 template<typename ValueType>
@@ -95,12 +95,12 @@ inline ValueType any_cast(const any& operand) {
 
 template<typename ValueType>
 any::any(const ValueType& val) {
-    _content = std::make_shared<GeneralObject<ValueType> >(val); 
+    _content = std::make_shared<GeneralObject<ValueType> >(val);
 }
 
 template<typename ValueType>
 void any::set_value(const ValueType& val) {
-    _content = std::make_shared<GeneralObject<ValueType> >(val); 
+    _content = std::make_shared<GeneralObject<ValueType> >(val);
 }
 
 template<typename ValueType>
@@ -137,7 +137,7 @@ bool any::get_value(ValueType& val) const {
 }
 
 template<>
-bool any::get_value<int>(int& val) const; 
+bool any::get_value<int>(int& val) const;
 
 template<>
 bool any::get_value<double>(double& val) const;
@@ -152,16 +152,16 @@ inline bool any::operator==(const ValueType& rhs) {
 
 bool is_numeric_datanode(const any& dn);
 
-} //namespace ipyhon
+} //namespace ipython
 
 namespace std {
 
 template<>
-class hash<ipyhon::any> {
+class hash<ipython::any> {
 public:
-	size_t operator()(const ipyhon::any& l) const {
-		return l.get_content()->_ob_type->tp_hash(l);
-	}
+    size_t operator()(const ipython::any& l) const {
+        return l.get_content()->_ob_type->tp_hash(l);
+    }
 };
 
 }

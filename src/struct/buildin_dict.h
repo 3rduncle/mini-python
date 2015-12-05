@@ -3,12 +3,11 @@
 
 #include "type_object.h"
 
-namespace ipyhon {
+namespace ipython {
 
 struct DictType : public TypeObject {
     DictType();
 };
-
 
 }
 #endif

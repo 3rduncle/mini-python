@@ -4,7 +4,7 @@
 #include <boost/algorithm/string.hpp>
 #include "struct.h"
 
-namespace ipyhon {
+namespace ipython {
 
 typedef std::vector<any> List;
 typedef GeneralObject<List> ListObject;
@@ -24,16 +24,16 @@ struct ListAdd {
 };
 
 struct ListPrint {
-	void operator()(const any& l) {
-		assert(l.type() == typeid(List));
-		List& self = l.get_refer<List>();
-		std::vector<std::string> vec;
-		std::transform(
-			self.begin(), self.end(), vec.begin(), 
-			[](any& x) -> std::string {return x.get_content()->_ob_type->tp_repr(x);}
-		);
-		std::cout <<  "[" <<  boost::join(vec, ",") << "]" << std::endl;;
-	}
+    void operator()(const any& l) {
+        assert(l.type() == typeid(List));
+        List& self = l.get_refer<List>();
+        std::vector<std::string> vec;
+        std::transform(
+            self.begin(), self.end(), vec.begin(),
+            [](any& x) -> std::string {return x.get_content()->_ob_type->tp_repr(x);}
+        );
+        std::cout <<  "[" <<  boost::join(vec, ",") << "]" << std::endl;;
+    }
 };
 
 ListType::ListType() {

@@ -1,6 +1,6 @@
 #include "struct.h"
 
-namespace ipyhon {
+namespace ipython {
 
 typedef GeneralObject<double> DoubleObject;
 typedef std::shared_ptr<DoubleObject> DoublePtr;

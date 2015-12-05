@@ -4,20 +4,20 @@
 #include "type_object.h"
 #include "operator_helper.h"
 
-namespace ipyhon {
+namespace ipython {
 
 const double EPS = 1e-8;
 /**********************/
 struct NumberAdd : public MultiTypeBinaryFunc {
-	NumberAdd();
+    NumberAdd();
 };
 
 struct NumberSub : public MultiTypeBinaryFunc {
-	NumberSub();
+    NumberSub();
 };
 
 struct NumberMul : public MultiTypeBinaryFunc {
-	NumberMul();
+    NumberMul();
 };
 
 struct NumberDiv : public MultiTypeBinaryFunc {

@@ -1,7 +1,7 @@
 #include <unordered_map>
 #include "struct.h"
 
-namespace ipyhon {
+namespace ipython {
 
 typedef std::unordered_map<any, any> Dict;
 typedef GeneralObject<Dict> DictObject;

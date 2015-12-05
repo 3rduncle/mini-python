@@ -3,7 +3,7 @@
 
 #include "type_object.h"
 
-namespace ipyhon {
+namespace ipython {
 
 struct StringType : public TypeObject {
     StringType();

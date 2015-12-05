@@ -9,9 +9,9 @@
 #include "any.h"
 //#include "buildin_type.h"
 
-namespace ipyhon {
+namespace ipython {
 
-class MultiTypeBinaryFunc { 
+class MultiTypeBinaryFunc {
 public:
     any operator()(const any& l, const any& r) {
         auto it =  _funcs.find(std::string(l.type().name()) + "," + r.type().name());
@@ -23,10 +23,10 @@ public:
     template<class Left, class Right>
     void operator_register(const BinaryFunc& func) {
         _funcs.insert(
-                std::make_pair(
-                    std::string(typeid(Left).name()) + "," + typeid(Right).name(),
-                    func
-                )
+            std::make_pair(
+                std::string(typeid(Left).name()) + "," + typeid(Right).name(),
+                func
+            )
         );
     }
     template<class Left>
@@ -142,7 +142,7 @@ struct EqualHelper {
         std::shared_ptr<LeftType> ld = std::dynamic_pointer_cast<LeftType>(lp);
         std::shared_ptr<RightType> rd = std::dynamic_pointer_cast<RightType>(rp);
         try {
-            return ld->_core == rd->_core; 
+            return ld->_core == rd->_core;
         } catch (...) {
             return any();
         }
@@ -184,24 +184,24 @@ struct PrintHelper {
 
 template<class T>
 struct ToStringHelper {
-	std::string operator()(const any& l) {
-		if (l.type() != typeid(T)) {
-			return "";
-		}
-		std::stringstream ss;
-		ss << l.get_refer<T>();
-		return ss.str();
-	}
+    std::string operator()(const any& l) {
+        if (l.type() != typeid(T)) {
+            return "";
+        }
+        std::stringstream ss;
+        ss << l.get_refer<T>();
+        return ss.str();
+    }
 };
 
 template<class T>
 struct HashHelper {
-	size_t operator()(const any& l) {
-		if (l.type() != typeid(T)) {
-			return 0;
-		}
-		return std::hash<T>()(l.get_refer<T>());
-	}
+    size_t operator()(const any& l) {
+        if (l.type() != typeid(T)) {
+            return 0;
+        }
+        return std::hash<T>()(l.get_refer<T>());
+    }
 };
 
 }

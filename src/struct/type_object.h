@@ -4,7 +4,7 @@
 #include <string>
 #include <functional>
 
-namespace ipyhon {
+namespace ipython {
 
 class Object;
 class any;
@@ -41,7 +41,7 @@ struct TypeObject {
     VoidOfUnaryFunc tp_print;
     StrOfUnaryFunc tp_repr;
     StrOfUnaryFunc tp_string;     //to raw string
-	HashOfUnaryFunc tp_hash;
+    HashOfUnaryFunc tp_hash;
     LogicMethods tp_logic;
     NumberMethods tp_as_number;
     SequenceMethods tp_as_sequence;

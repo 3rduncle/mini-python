@@ -3,7 +3,7 @@
 
 #include "type_object.h"
 
-namespace ipyhon {
+namespace ipython {
 
 struct BooleanType : public TypeObject {
     BooleanType();

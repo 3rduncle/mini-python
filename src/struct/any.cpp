@@ -2,10 +2,10 @@
 #include <boost/foreach.hpp>
 #include "struct.h"
 
-namespace ipyhon {
+namespace ipython {
 
-RunTimeOperatorManeger* RunTimeOperatorManeger::_s_instance = 
-RunTimeOperatorManeger::get_instance();
+RunTimeOperatorManeger* RunTimeOperatorManeger::_s_instance =
+    RunTimeOperatorManeger::get_instance();
 
 /* any成员函数区 */
 any::any() {
@@ -21,20 +21,20 @@ any::any(const any& rhs) {
 }
 
 any::any(const char* rhs) {
-    _content = std::make_shared<GeneralObject<std::string> >(rhs); 
+    _content = std::make_shared<GeneralObject<std::string> >(rhs);
     //new(this) any(std::string(rhs));
 }
 
 any& any::operator=(const any& rhs) {
     //return swap(rhs); // move语义
-	/* copy语义
+    /* copy语义
     if (!rhs.get_content()) {
         _content.reset();
         return *this;
     }
-    _content = rhs.get_content()->clone();	
-	*/
-	_content = rhs.get_content(); //引用语义
+    _content = rhs.get_content()->clone();
+    */
+    _content = rhs.get_content(); //引用语义
     return *this;
 
 }
@@ -101,7 +101,7 @@ any& any::operator+=(const any& rhs) {
     if (_content->_ob_type->tp_as_number.nb_add) {
         *this = _content->_ob_type->tp_as_number.nb_add(*this, rhs);
     } else {
-		;
+        ;
     }
     return *this;
 }
@@ -110,7 +110,7 @@ any& any::operator*=(const any& rhs) {
     if (_content->_ob_type->tp_as_number.nb_mul) {
         *this = _content->_ob_type->tp_as_number.nb_mul(*this, rhs);
     } else {
-		;
+        ;
     }
     return *this;
 }
@@ -119,7 +119,7 @@ any& any::operator-=(const any& rhs) {
     if (_content->_ob_type->tp_as_number.nb_sub) {
         *this = _content->_ob_type->tp_as_number.nb_sub(*this, rhs);
     } else {
-		;
+        ;
     }
     return *this;
 }
@@ -128,7 +128,7 @@ any& any::operator/=(const any& rhs) {
     if (_content->_ob_type->tp_as_number.nb_div) {
         *this = _content->_ob_type->tp_as_number.nb_div(*this, rhs);
     } else {
-		;
+        ;
     }
     return *this;
 }

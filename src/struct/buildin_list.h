@@ -3,7 +3,7 @@
 
 #include "type_object.h"
 
-namespace ipyhon {
+namespace ipython {
 
 struct ListType : public TypeObject {
     ListType();

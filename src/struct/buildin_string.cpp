@@ -1,6 +1,6 @@
 #include "struct.h"
 
-namespace ipyhon {
+namespace ipython {
 
 typedef GeneralObject<std::string> StringObject;
 typedef std::shared_ptr<StringObject> StringPtr;
