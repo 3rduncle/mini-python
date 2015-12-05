@@ -10,6 +10,7 @@ class Object;
 class any;
 //--------------类型操作------------------------
 typedef std::function<void (const any&)> VoidOfUnaryFunc;
+typedef std::function<bool (const any&)> Verification;
 typedef std::function<std::string (const any&)> StrOfUnaryFunc;
 typedef std::function<size_t (const any&)> HashOfUnaryFunc;
 typedef std::function<any (const any&)> UnaryFunc;
@@ -23,6 +24,7 @@ struct LogicMethods {
 };
 
 struct NumberMethods {
+	Verification nb_zero;
     BinaryFunc nb_add;
     BinaryFunc nb_sub;
     BinaryFunc nb_mul;

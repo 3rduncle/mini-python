@@ -84,6 +84,10 @@ struct DivHelper {
         if (l.type() != typeid(Left) || r.type() != typeid(Right)) {
             return any();
         }
+		auto& verification = l.get_content()->_ob_type->tp_as_number.nb_zero;
+		if (verification && verification(l)) {
+			return any();
+		}
 		try {
 			return l.get_refer<Left>() / r.get_refer<Right>();
 		} catch (...) {

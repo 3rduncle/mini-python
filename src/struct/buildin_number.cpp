@@ -10,9 +10,9 @@ typedef std::shared_ptr<DoubleObject> DoublePtr;
 template<>
 struct EqualHelper<double> {
     any operator()(const any& l, const any& r) {
-        double* dp1 = l.get_value<double>();
-        double* dp2 = r.get_value<double>();
-        if (fabs(*dp1 - *dp2) < EPS) {
+        double& dp1 = l.get_refer<double>();
+        double& dp2 = r.get_refer<double>();
+        if (fabs(dp1 - dp2) < EPS) {
             return true;
         }
         return false;
@@ -22,9 +22,9 @@ struct EqualHelper<double> {
 template<>
 struct LessHelper<double> {
     any operator()(const any& l, const any& r) {
-        double* dp1 = l.get_value<double>();
-        double* dp2 = r.get_value<double>();
-        if (*dp1 - *dp2 < -EPS) {
+        double& dp1 = l.get_refer<double>();
+        double& dp2 = r.get_refer<double>();
+        if (dp1 - dp2 < -EPS) {
             return true;
         }
         return false;
@@ -34,9 +34,9 @@ struct LessHelper<double> {
 template<>
 struct GreatHelper<double> {
     any operator()(const any& l, const any& r) {
-        double* dp1 = l.get_value<double>();
-        double* dp2 = r.get_value<double>();
-        if (*dp1 - *dp2 > EPS) {
+        double& dp1 = l.get_refer<double>();
+        double& dp2 = r.get_refer<double>();
+        if (dp1 - dp2 > EPS) {
             return true;
         }
         return false;
@@ -102,6 +102,7 @@ IntType::IntType() {
     tp_logic.less = NumberLess();
     tp_logic.great = NumberGreat();
 
+	tp_as_number.nb_zero = [](const any& x) { return x.get_refer<int>() == 0;};
     tp_as_number.nb_add = NumberAdd();
     tp_as_number.nb_sub = NumberSub();
     tp_as_number.nb_mul = NumberMul();
@@ -117,6 +118,7 @@ DoubleType::DoubleType() {
     tp_logic.less = NumberLess();
     tp_logic.great = NumberGreat();
 
+	tp_as_number.nb_zero = [](const any& x) { return fabs(x.get_refer<double>()) < EPS;};
     tp_as_number.nb_add = NumberAdd();
     tp_as_number.nb_sub = NumberSub();
     tp_as_number.nb_mul = NumberMul();
