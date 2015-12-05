@@ -7,7 +7,6 @@
 #include <memory>
 #include "type_object.h"
 #include "any.h"
-//#include "buildin_type.h"
 
 namespace ipython {
 
@@ -40,17 +39,11 @@ private:
 template<class Left, class Right = Left>
 struct AddHelper {
     any operator()(const any& l, const any& r) {
-        typedef GeneralObject<Left> LeftType;
-        typedef GeneralObject<Right> RightType;
         if (l.type() != typeid(Left) || r.type() != typeid(Right)) {
             return any();
         }
-        ObjectPtr lp = l.get_content();
-        ObjectPtr rp = r.get_content();
-        std::shared_ptr<LeftType> ld = std::dynamic_pointer_cast<LeftType>(lp);
-        std::shared_ptr<RightType> rd = std::dynamic_pointer_cast<RightType>(rp);
         try {
-            return any(ld->_core + rd->_core);
+            return l.get_refer<Left>() + r.get_refer<Right>();
         } catch (...) {
             return any();
         }
@@ -60,17 +53,11 @@ struct AddHelper {
 template<class Left, class Right = Left>
 struct SubHelper {
     any operator()(const any& l, const any& r) {
-        typedef GeneralObject<Left> LeftType;
-        typedef GeneralObject<Right> RightType;
         if (l.type() != typeid(Left) || r.type() != typeid(Right)) {
             return any();
         }
-        ObjectPtr lp = l.get_content();
-        ObjectPtr rp = r.get_content();
-        std::shared_ptr<LeftType > ld = std::dynamic_pointer_cast<LeftType >(lp);
-        std::shared_ptr<RightType> rd = std::dynamic_pointer_cast<RightType>(rp);
         try {
-            return any(ld->_core - rd->_core);
+            return l.get_refer<Left>() - r.get_refer<Right>();
         } catch (...) {
             return any();
         }
@@ -80,49 +67,39 @@ struct SubHelper {
 template<class Left, class Right = Left>
 struct MulHelper {
     any operator()(const any& l, const any& r) {
-        typedef GeneralObject<Left> LeftType;
-        typedef GeneralObject<Right> RightType;
         if (l.type() != typeid(Left) || r.type() != typeid(Right)) {
             return any();
         }
-        ObjectPtr lp = l.get_content();
-        ObjectPtr rp = r.get_content();
-        std::shared_ptr<LeftType> ld = std::dynamic_pointer_cast<LeftType>(lp);
-        std::shared_ptr<RightType> rd = std::dynamic_pointer_cast<RightType>(rp);
-        return any(ld->_core * rd->_core);
+		try {
+			return l.get_refer<Left>() * r.get_refer<Right>();
+		} catch (...) {
+			return any();
+		}
     }
 };
 
 template<class Left, class Right = Left>
 struct DivHelper {
-    any operator()(any l, any r) {
-        typedef GeneralObject<Left> LeftType;
-        typedef GeneralObject<Right> RightType;
+    any operator()(const any& l, const any& r) {
         if (l.type() != typeid(Left) || r.type() != typeid(Right)) {
             return any();
         }
-        ObjectPtr lp = l.get_content();
-        ObjectPtr rp = r.get_content();
-        std::shared_ptr<LeftType> ld = std::dynamic_pointer_cast<LeftType>(lp);
-        std::shared_ptr<RightType> rd = std::dynamic_pointer_cast<RightType>(rp);
-        return any(ld->_core / rd->_core);
+		try {
+			return l.get_refer<Left>() / r.get_refer<Right>();
+		} catch (...) {
+			return any();
+		}
     }
 };
 
 template<class Left, class Right = Left>
 struct LessHelper {
     any operator()(const any& l, const any& r) {
-        typedef GeneralObject<Left> LeftType;
-        typedef GeneralObject<Right> RightType;
         if (l.type() != typeid(Left) || r.type() != typeid(Right)) {
             return any();
         }
-        ObjectPtr lp = l.get_content();
-        ObjectPtr rp = r.get_content();
-        std::shared_ptr<LeftType> ld = std::dynamic_pointer_cast<LeftType>(lp);
-        std::shared_ptr<RightType> rd = std::dynamic_pointer_cast<RightType>(rp);
         try {
-            return ld->_core < rd->_core;
+            return l.get_refer<Left>() < r.get_refer<Right>();
         } catch (...) {
             return any();
         }
@@ -132,17 +109,11 @@ struct LessHelper {
 template<class Left, class Right = Left>
 struct EqualHelper {
     any operator()(const any& l, const any& r) {
-        typedef GeneralObject<Left> LeftType;
-        typedef GeneralObject<Right> RightType;
         if (l.type() != typeid(Left) || r.type() != typeid(Right)) {
             return false;
         }
-        ObjectPtr lp = l.get_content();
-        ObjectPtr rp = r.get_content();
-        std::shared_ptr<LeftType> ld = std::dynamic_pointer_cast<LeftType>(lp);
-        std::shared_ptr<RightType> rd = std::dynamic_pointer_cast<RightType>(rp);
         try {
-            return ld->_core == rd->_core;
+            return l.get_refer<Left>() == r.get_refer<Right>();
         } catch (...) {
             return any();
         }
@@ -152,17 +123,11 @@ struct EqualHelper {
 template<class Left, class Right = Left>
 struct GreatHelper {
     any operator()(const any& l, const any& r) {
-        typedef GeneralObject<Left> LeftType;
-        typedef GeneralObject<Right> RightType;
         if (l.type() != typeid(Left) || r.type() != typeid(Right)) {
             return any();
         }
-        ObjectPtr lp = l.get_content();
-        ObjectPtr rp = r.get_content();
-        std::shared_ptr<LeftType> ld = std::dynamic_pointer_cast<LeftType>(lp);
-        std::shared_ptr<RightType> rd = std::dynamic_pointer_cast<RightType>(rp);
         try {
-            return ld->_core > rd->_core;
+            return l.get_refer<Left>() > r.get_refer<Right>();
         } catch (...) {
             return any();
         }
@@ -176,9 +141,7 @@ struct PrintHelper {
         if (l.type() != typeid(T)) {
             return;
         }
-        ObjectPtr lp = l.get_content();
-        std::shared_ptr<FinalType> ld = std::dynamic_pointer_cast<FinalType>(lp);
-        std::cout << ld->_core << std::endl;
+        std::cout << l.get_refer<T>() << std::endl;
     }
 };
 
