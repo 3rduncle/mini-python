@@ -18,13 +18,13 @@ struct DictPrint {
         std::vector<std::string> vec;
         std::transform(
             dl.begin(), dl.end(), vec.begin(),
-        [](const AnyPair& p) {
-            auto& k = p.first;
-            auto& v = p.second;
-            return k.get_content()->_ob_type->tp_repr(k)
-                   + ": "
-                   + k.get_content()->_ob_type->tp_repr(v);
-        }
+			[](const AnyPair& p) {
+				auto& k = p.first;
+				auto& v = p.second;
+				return k.get_content()->_ob_type->tp_repr(k)
+					   + ": "
+					   + k.get_content()->_ob_type->tp_repr(v);
+			}
         );
         std::cout << "{" << boost::join(vec, ", ") << "}" << std::endl;
     }
