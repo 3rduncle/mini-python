@@ -141,7 +141,6 @@ struct GreatHelper {
 template<class T>
 struct PrintHelper {
     void operator()(const any& l) {
-        typedef GeneralObject<T> FinalType;
         if (l.type() != typeid(T)) {
             return;
         }

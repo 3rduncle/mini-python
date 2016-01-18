@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.2)
 project(mini-python)
 find_package(boost REQUIRED)
 aux_source_directory(. DIR_LIB_SRCS)

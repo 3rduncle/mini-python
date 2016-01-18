@@ -2,11 +2,11 @@
 
 namespace ipython {
 
-typedef GeneralObject<double> DoubleObject;
-typedef std::shared_ptr<DoubleObject> DoublePtr;
-
 typedef GeneralObject<int> IntObject;
 typedef std::shared_ptr<IntObject> IntPtr;
+
+typedef GeneralObject<double> DoubleObject;
+typedef std::shared_ptr<DoubleObject> DoublePtr;
 
 typedef GeneralObject<std::string> StringObject;
 typedef std::shared_ptr<StringObject> StringPtr;

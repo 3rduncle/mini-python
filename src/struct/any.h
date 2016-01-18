@@ -10,6 +10,7 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string.hpp>
 #include "type_object.h"
+#include <iostream>
 
 namespace ipython {
 
@@ -45,14 +46,23 @@ public:
 
     template<typename ValueType>
     bool operator==(const ValueType& rhs);
+
     bool operator!() const;
     const std::type_info& type() const;
     any& swap(any& rhs);
 
-    bool operator < (const any& other) const;
-    bool operator > (const any& other) const;
-    bool operator >= (const any& other) const;
-    bool operator <= (const any& other) const;
+    friend bool operator < (const any&, const any&);
+    friend bool operator > (const any&, const any&);
+
+	friend bool operator == (const any&, const any&);
+
+    friend bool operator >= (const any&, const any&);
+    friend bool operator <= (const any&, const any&);
+
+    //bool operator < (const any& other) const;
+    //bool operator > (const any& other) const;
+    //bool operator >= (const any& other) const;
+    //bool operator <= (const any& other) const;
 
     friend any operator+(const any&, const any&);
     friend any operator-(const any&, const any&);
@@ -142,6 +152,7 @@ bool any::get_value<int>(int& val) const;
 template<>
 bool any::get_value<double>(double& val) const;
 
+/*
 template<class ValueType>
 inline bool any::operator==(const ValueType& rhs) {
     if (type() != typeid(ValueType)) {
@@ -149,6 +160,7 @@ inline bool any::operator==(const ValueType& rhs) {
     }
     return std::dynamic_pointer_cast<ValueType>(_content)->_core == rhs;
 }
+*/
 
 bool is_numeric_datanode(const any& dn);
 
@@ -164,5 +176,5 @@ public:
     }
 };
 
-}
+} //namespace std
 #endif

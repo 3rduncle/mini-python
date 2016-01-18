@@ -65,6 +65,25 @@ void any::set_value(const char* val) {
     set_value(std::string(val));
 }
 
+bool operator<(const any& lhs, const any& rhs) {
+	if (lhs.get_content()->_ob_type->tp_logic.less) {
+		auto res = lhs.get_content()->_ob_type->tp_logic.less(lhs, rhs); 
+		return any_cast<bool>(res);
+	}
+	return false;
+}
+
+bool operator==(const any& lhs, const any& rhs) {
+	if (lhs.type() != rhs.type()) {
+		return false;
+	}
+	if (lhs.get_content()->_ob_type->tp_logic.equal) {
+		auto res = lhs.get_content()->_ob_type->tp_logic.less(lhs, rhs);
+		return any_cast<bool>(res);
+	}
+	return false;
+}
+
 any operator+(const any& lhs, const any& rhs) {
     if (lhs.get_content()->_ob_type->tp_as_number.nb_add) {
         return lhs.get_content()->_ob_type->tp_as_number.nb_add(lhs, rhs);
